@@ -46,10 +46,16 @@ import { StandardAccount } from './standard-account/entities/standard-account.en
 import { StandardAccountController } from './standard-account/standard-account.controller';
 import { StandardAccountService } from './standard-account/standard-account.service';
 import { AuthModule } from './auth/auth.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dataSourceOptions),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
     TypeOrmModule.forFeature([
       Bien,
       StandardAccount,
