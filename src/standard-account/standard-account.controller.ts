@@ -8,6 +8,8 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { StandardAccountService } from './standard-account.service';
 import { CreateStandardAccountDto } from './dto/create-standard-account.dto';
@@ -16,6 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 import { HashPasswordInterceptor } from 'src/interceptor/hash.password.interceptor';
+import { JwtAuthGuard } from 'src/auth/authguard';
 
 @Controller('standard-account')
 export class StandardAccountController {
@@ -48,6 +51,12 @@ export class StandardAccountController {
     return this.standardAccountService.create(createStandardAccountDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return this.standardAccountService.findOne(req.user.userId);
+  }
+
   @Get()
   findAll() {
     return this.standardAccountService.findAll();
@@ -55,6 +64,7 @@ export class StandardAccountController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log(id);
     return this.standardAccountService.findOne(+id);
   }
 

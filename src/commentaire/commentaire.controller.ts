@@ -6,16 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CommentaireService } from './commentaire.service';
 import { CreateCommentaireDto } from './dto/create-commentaire.dto';
 import { UpdateCommentaireDto } from './dto/update-commentaire.dto';
+import { JwtAuthGuard } from 'src/auth/authguard';
 
 @Controller('commentaire')
 export class CommentaireController {
   constructor(private readonly commentaireService: CommentaireService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createCommentaireDto: CreateCommentaireDto) {
     return this.commentaireService.create(createCommentaireDto);
   }
@@ -31,6 +34,7 @@ export class CommentaireController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: string,
     @Body() updateCommentaireDto: UpdateCommentaireDto,
@@ -39,6 +43,7 @@ export class CommentaireController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.commentaireService.remove(+id);
   }

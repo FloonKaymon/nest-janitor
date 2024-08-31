@@ -1,6 +1,6 @@
 import { Bien } from 'src/bien/entities/bien.entity';
 import { StandardAccount } from 'src/standard-account/entities/standard-account.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('commentaire')
 export class Commentaire {
@@ -16,19 +16,20 @@ export class Commentaire {
   @Column()
   date: Date;
 
+  @Column({ name: 'bien_id' })
+  bienId: number;
+
+  @Column({ name: 'standard_account_id' })
+  standardAccountId: number;
+
   @ManyToOne(() => Bien, (bien) => bien.commentaires)
+  @JoinColumn({ name: 'bien_id' })
   bien: Bien;
 
   @ManyToOne(
     () => StandardAccount,
     (standardAccount) => standardAccount.commentaires,
   )
+  @JoinColumn({ name: 'standard_account_id' })
   standardAccount: StandardAccount;
-
-  constructor(id: number, content: string, note: number, date: Date) {
-    this.id = id;
-    this.content = content;
-    this.note = note;
-    this.date = date;
-  }
 }

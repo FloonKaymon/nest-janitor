@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCommentaireDto } from './dto/create-commentaire.dto';
 import { UpdateCommentaireDto } from './dto/update-commentaire.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Commentaire } from './entities/commentaire.entity';
 
 @Injectable()
 export class CommentaireService {
-  create(createCommentaireDto: CreateCommentaireDto) {
-    return 'This action adds a new commentaire';
+  constructor(
+    @InjectRepository(Commentaire)
+    private commentaireRepository: Repository<Commentaire>,
+  ) {}
+  async create(createCommentaireDto: CreateCommentaireDto) {
+    const commentaire = this.commentaireRepository.create(createCommentaireDto);
+    return await this.commentaireRepository.save(commentaire);
   }
 
-  findAll() {
-    return `This action returns all commentaire`;
+  async findAll() {
+    return await this.commentaireRepository.find(
+      {
+        relations: {
+          bien: true,
+          standardAccount: true,
+        }
+      }
+    );
   }
 
   findOne(id: number) {

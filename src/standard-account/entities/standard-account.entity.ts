@@ -1,5 +1,6 @@
 import { Bien } from 'src/bien/entities/bien.entity';
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
+import { PrestationPropose } from 'src/prestation-propose/entities/prestation-propose.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -13,6 +14,12 @@ export class StandardAccount {
 
   @Column()
   lastName: string;
+
+  @Column()
+  societyName: string = '';
+
+  @Column()
+  type: string;
 
   @Column({ unique: true })
   email: string;
@@ -37,5 +44,11 @@ export class StandardAccount {
 
   @OneToMany(() => Commentaire, (commentaires) => commentaires.standardAccount)
   commentaires: Commentaire[];
+
+  @OneToMany(
+    () => PrestationPropose,
+    (prestationProposes) => prestationProposes.standardAccount,
+  )
+  prestationProposes: PrestationPropose[];
 
 }

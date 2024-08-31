@@ -61,8 +61,16 @@ export class StandardAccountService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} standardAccount`;
+  async findOne(id: number) {
+    console.log(id);
+    return await this.standardAccountRepository.findOne({
+      where: { id: id },
+      relations: {
+        reservations: true,
+        commentaires: true,
+        biens: true,
+      }
+    });
   }
 
   update(id: number, updateStandardAccountDto: UpdateStandardAccountDto) {

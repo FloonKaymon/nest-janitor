@@ -1,9 +1,10 @@
-import { PrestataireAccount } from 'src/prestataire-account/entities/prestataire-account.entity';
 import { PrestationCategory } from 'src/prestation-category/entities/prestation-category.entity';
 import { PrestationUnitaire } from 'src/prestation-unitaire/entities/prestation-unitaire.entity';
+import { StandardAccount } from 'src/standard-account/entities/standard-account.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -30,46 +31,34 @@ export class PrestationPropose {
   status: string;
 
   @Column()
-  unit: string | null;
+  unit: string = '';
 
   @Column()
   voyagerPay: boolean;
 
+  @Column({ name: 'standard_account_id' })
+  standardAccountId: number;
+
+  @Column({ name: 'prestation_category_id' })
+  prestationCategoryId: number;
+
   @ManyToOne(
-    () => PrestataireAccount,
-    (prestataireAccount) => prestataireAccount.prestationProposes,
+    () => StandardAccount,
+    (standardAccount) => standardAccount.prestationProposes,
   )
-  prestataireAccount: PrestataireAccount;
+  @JoinColumn({ name: 'standard_account_id' })
+  standardAccount: StandardAccount;
+  
+  @ManyToOne(
+    () => PrestationCategory,
+    (prestationCategory) => prestationCategory.prestationProposes,
+  )
+  @JoinColumn({ name: 'prestation_category_id' })
+  prestationCategory: PrestationCategory;
 
   @OneToMany(
     () => PrestationUnitaire,
     (prestationUnitaires) => prestationUnitaires.prestationPropose,
   )
   prestationUnitaires: PrestationUnitaire[];
-
-  @ManyToOne(
-    () => PrestationCategory,
-    (prestationCategory) => prestationCategory.prestationProposes,
-  )
-  prestationCategory: PrestationCategory;
-
-  constructor(
-    id: number,
-    name: string,
-    description: string,
-    type: string,
-    price: number,
-    status: string,
-    unit: string | null,
-    voyagerPay: boolean,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.type = type;
-    this.price = price;
-    this.status = status;
-    this.unit = unit;
-    this.voyagerPay = voyagerPay;
-  }
 }

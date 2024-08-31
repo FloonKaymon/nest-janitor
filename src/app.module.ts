@@ -6,7 +6,6 @@ import { StandardAccountModule } from './standard-account/standard-account.modul
 import { ReservationModule } from './reservation/reservation.module';
 import { PhotoBienModule } from './photo-bien/photo-bien.module';
 import { AdminAccountModule } from './admin-account/admin-account.module';
-import { PrestataireAccountModule } from './prestataire-account/prestataire-account.module';
 import { CommentaireModule } from './commentaire/commentaire.module';
 import { PrestationProposeModule } from './prestation-propose/prestation-propose.module';
 import { PrestationUnitaireModule } from './prestation-unitaire/prestation-unitaire.module';
@@ -31,9 +30,6 @@ import { FactureClientService } from './facture-client/facture-client.service';
 import { PhotoBien } from './photo-bien/entities/photo-bien.entity';
 import { PhotoBienController } from './photo-bien/photo-bien.controller';
 import { PhotoBienService } from './photo-bien/photo-bien.service';
-import { PrestataireAccount } from './prestataire-account/entities/prestataire-account.entity';
-import { PrestataireAccountController } from './prestataire-account/prestataire-account.controller';
-import { PrestataireAccountService } from './prestataire-account/prestataire-account.service';
 import { PrestationCategory } from './prestation-category/entities/prestation-category.entity';
 import { PrestationCategoryController } from './prestation-category/prestation-category.controller';
 import { PrestationCategoryService } from './prestation-category/prestation-category.service';
@@ -60,7 +56,6 @@ import { AuthModule } from './auth/auth.module';
       Reservation,
       PhotoBien,
       AdminAccount,
-      PrestataireAccount,
       Commentaire,
       PrestationPropose,
       PrestationUnitaire,
@@ -73,7 +68,6 @@ import { AuthModule } from './auth/auth.module';
     ReservationModule,
     PhotoBienModule,
     AdminAccountModule,
-    PrestataireAccountModule,
     CommentaireModule,
     PrestationProposeModule,
     PrestationUnitaireModule,
@@ -88,7 +82,6 @@ import { AuthModule } from './auth/auth.module';
     ReservationController,
     PhotoBienController,
     AdminAccountController,
-    PrestataireAccountController,
     CommentaireController,
     PrestationProposeController,
     PrestationUnitaireController,
@@ -102,7 +95,6 @@ import { AuthModule } from './auth/auth.module';
     ReservationService,
     PhotoBienService,
     AdminAccountService,
-    PrestataireAccountService,
     CommentaireService,
     PrestationProposeService,
     PrestationUnitaireService,
