@@ -49,7 +49,7 @@ import { ReservationService } from './reservation/reservation.service';
 import { StandardAccount } from './standard-account/entities/standard-account.entity';
 import { StandardAccountController } from './standard-account/standard-account.controller';
 import { StandardAccountService } from './standard-account/standard-account.service';
-import { JwtModule } from '@nestjs/jwt';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -80,7 +80,7 @@ import { JwtModule } from '@nestjs/jwt';
     FactureClientModule,
     BienCategoryModule,
     PrestationCategoryModule,
-    JwtModule
+    AuthModule,
   ],
   controllers: [
     BienController,

@@ -18,12 +18,12 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 
-@UseGuards(JwtAuthGuard)
 @Controller('photo-bien')
 export class PhotoBienController {
   constructor(private readonly photoBienService: PhotoBienService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(
     FileInterceptor('path', {
       storage: diskStorage({
@@ -53,6 +53,7 @@ export class PhotoBienController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: string,
     @Body() updatePhotoBienDto: UpdatePhotoBienDto,
@@ -61,6 +62,7 @@ export class PhotoBienController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.photoBienService.remove(+id);
   }

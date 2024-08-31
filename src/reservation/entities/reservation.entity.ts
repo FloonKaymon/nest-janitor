@@ -5,6 +5,7 @@ import { StandardAccount } from 'src/standard-account/entities/standard-account.
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -28,10 +29,17 @@ export class Reservation {
   @Column()
   status: string;
 
+  @Column({ name: 'standard_account_id' })
+  standardAccountId: number;
+
+  @Column({ name: 'bien_id' })
+  bienId: number;
+
   @ManyToOne(
     () => StandardAccount,
     (standardAccount) => standardAccount.reservations,
   )
+  @JoinColumn({ name: 'standard_account_id' })
   standardAccount: StandardAccount;
 
   @OneToMany(
@@ -41,22 +49,10 @@ export class Reservation {
   prestationUnitaires: PrestationUnitaire[];
 
   @ManyToOne(() => Bien, (bien) => bien.reservations)
+  @JoinColumn({ name: 'bien_id' })
   bien: Bien;
 
   @OneToOne(() => FactureClient, (factureClient) => factureClient.reservation)
   factureClient: FactureClient;
 
-  constructor(
-    id: number,
-    startDate: Date,
-    endDate: Date,
-    lateCheckOut: boolean,
-    status: string,
-  ) {
-    this.id = id;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.lateCheckOut = lateCheckOut;
-    this.status = status;
-  }
 }

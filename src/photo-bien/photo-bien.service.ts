@@ -4,55 +4,21 @@ import { UpdatePhotoBienDto } from './dto/update-photo-bien.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PhotoBien } from './entities/photo-bien.entity';
-import { Bien } from 'src/bien/entities/bien.entity';
 
 @Injectable()
 export class PhotoBienService {
   constructor(
     @InjectRepository(PhotoBien)
     private photoBienRepository: Repository<PhotoBien>,
-    @InjectRepository(Bien)
-    private photoBien: Repository<Bien>,
   ) {}
-
+  
   async create(createPhotoBienDto: CreatePhotoBienDto) {
-    return this.photoBienRepository.save(createPhotoBienDto);
+    const photoBien = this.photoBienRepository.create(createPhotoBienDto);
+    return this.photoBienRepository.save(photoBien);
   }
 
   findAll() {
-    const photoBiens = await this.associationRepository.find();
-    if (!photoBiens) {
-      throw new HttpException('Associations not found', HttpStatus.NOT_FOUND);
-    }
-    for (const photoBien of associations) {
-      const articles = await this.articleRepository.find({
-        where: { associationId: association.id },
-      });
-      association.articles = articles;
-      const events = await this.eventRepository.find({
-        where: { associationName: association.name },
-      });
-      association.events = events;
-    }
-    return photoBiens;
-  }
-
-  async findAllbyBienId( bienId : number) {
-    const photoBiens = await this.associationRepository.find();
-    if (!photoBiens) {
-      throw new HttpException('Associations not found', HttpStatus.NOT_FOUND);
-    }
-    for (const photoBien of associations) {
-      const articles = await this.articleRepository.find({
-        where: { associationId: association.id },
-      });
-      association.articles = articles;
-      const events = await this.eventRepository.find({
-        where: { associationName: association.name },
-      });
-      association.events = events;
-    }
-    return photoBiens;
+    return `This action returns all photoBien`;
   }
 
   findOne(id: number) {

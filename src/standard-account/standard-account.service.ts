@@ -1,15 +1,64 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateStandardAccountDto } from './dto/create-standard-account.dto';
 import { UpdateStandardAccountDto } from './dto/update-standard-account.dto';
+import { Repository } from 'typeorm';
+import { StandardAccount } from './entities/standard-account.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class StandardAccountService {
-  create(createStandardAccountDto: CreateStandardAccountDto) {
-    return 'This action adds a new standardAccount';
+  constructor(
+    @InjectRepository(StandardAccount)
+    private standardAccountRepository: Repository<StandardAccount>,
+    private jwtService: JwtService,
+  ) {}
+
+  async validateUser(email: string, encodedPassword: string): Promise<any> {
+    const standardAccount = await this.standardAccountRepository.findOne({
+      where: { email: email },
+    });
+    if (
+      standardAccount &&
+      (await bcrypt.compare(encodedPassword, standardAccount.encodedPassword))
+    ) {
+      const { encodedPassword, ...result } = standardAccount;
+      return result;
+    }
+    return null;
   }
 
-  findAll() {
-    return `This action returns all standardAccount`;
+  async login(email: string, password: string) {
+    const standardAccount = await this.validateUser(email, password);
+    if (standardAccount == null) {
+      throw new UnauthorizedException();
+    }
+    const payload = { standardAccountEmail: standardAccount.email, standardAccountId: standardAccount.id };
+    return await {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
+
+
+  async create(createStandardAccountDto: CreateStandardAccountDto) {
+    const standardAccount = await this.standardAccountRepository.findOne({
+      where: { email: createStandardAccountDto.email },
+    });
+    if (standardAccount) {
+      throw new UnauthorizedException();
+    }
+    return await this.standardAccountRepository.save(createStandardAccountDto);
+  }
+
+  async findAll() {
+    return await this.standardAccountRepository.find({
+      relations: {
+        reservations: true,
+        commentaires: true,
+        biens: true,
+      }
+    });
   }
 
   findOne(id: number) {

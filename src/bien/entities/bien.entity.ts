@@ -3,6 +3,7 @@ import { PhotoBien } from 'src/photo-bien/entities/photo-bien.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -27,21 +28,25 @@ export class Bien {
   town: string;
 
   @Column()
-  numberOfRooms: number;
+  numberOfRooms: number = 0;
 
   @Column()
-  price: number;
+  price: number = 0;
 
   @Column()
-  surface: number;
+  surface: number = 0;
 
   @Column()
-  status: string;
+  status: string = '0';
 
   @Column()
-  personCapacity: number;
+  personCapacity: number = 0;
+
+  @Column({name: 'standard_account_id'})
+  standardAccountId: number;
 
   @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.biens)
+  @JoinColumn({ name: 'standard_account_id' })
   standardAccount: StandardAccount;
 
   @OneToMany(() => PhotoBien, (photoBiens) => photoBiens.bien)
@@ -56,25 +61,4 @@ export class Bien {
   @ManyToMany(() => BienCategory, (bienCategories) => bienCategories.biens)
   bienCategories: BienCategory[];
 
-  constructor(
-    id: number,
-    address: string,
-    description: string,
-    town: string,
-    numberOfRooms: number,
-    price: number,
-    surface: number,
-    status: string,
-    personCapacity: number,
-  ) {
-    this.id = id;
-    this.address = address;
-    this.description = description;
-    this.town = town;
-    this.numberOfRooms = numberOfRooms;
-    this.price = price;
-    this.surface = surface;
-    this.status = status;
-    this.personCapacity = personCapacity;
-  }
 }

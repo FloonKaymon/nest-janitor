@@ -18,16 +18,16 @@ export class StandardAccount {
   email: string;
 
   @Column()
-  adress: string;
+  address: string;
 
   @Column()
   town: string;
 
   @Column()
-  postalCode: string;
+  encodedPassword: string;
 
   @Column()
-  encodedPassword: string;
+  photoUrl: string;
 
   @OneToMany(() => Bien, (biens) => biens.standardAccount)
   biens: Bien[];
@@ -38,23 +38,4 @@ export class StandardAccount {
   @OneToMany(() => Commentaire, (commentaires) => commentaires.standardAccount)
   commentaires: Commentaire[];
 
-  constructor(
-    id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    adress: string,
-    town: string,
-    postalCode: string,
-    encodedPassword: string,
-  ) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.adress = adress;
-    this.town = town;
-    this.postalCode = postalCode;
-    this.encodedPassword = encodedPassword;
-  }
 }

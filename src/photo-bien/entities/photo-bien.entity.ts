@@ -1,5 +1,5 @@
 import { Bien } from 'src/bien/entities/bien.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'photo-bien' })
 export class PhotoBien {
@@ -10,14 +10,13 @@ export class PhotoBien {
   path: string;
 
   @Column()
-  isMain: boolean;
+  isMain: boolean = false;
+
+  @Column({ name: 'bien_id' })
+  bienId: number;
 
   @ManyToOne(() => Bien, (bien) => bien.photoBiens)
+  @JoinColumn({ name: 'bien_id' })
   bien: Bien;
 
-  constructor(id: number, path: string, isMain: boolean) {
-    this.id = id;
-    this.path = path;
-    this.isMain = isMain;
-  }
 }
