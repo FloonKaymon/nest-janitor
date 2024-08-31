@@ -18,10 +18,10 @@ export class Bien {
   id: number;
 
   @Column()
-  type: string;
+  description: string;
 
   @Column()
-  description: string;
+  address: string;
 
   @Column()
   town: string;
@@ -58,7 +58,7 @@ export class Bien {
 
   constructor(
     id: number,
-    type: string,
+    address: string,
     description: string,
     town: string,
     numberOfRooms: number,
@@ -68,7 +68,7 @@ export class Bien {
     personCapacity: number,
   ) {
     this.id = id;
-    this.type = type;
+    this.address = address;
     this.description = description;
     this.town = town;
     this.numberOfRooms = numberOfRooms;

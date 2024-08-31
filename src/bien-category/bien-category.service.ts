@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
-import { CreateBienCategoryDto } from './dto/create-bien-category.dto';
-import { UpdateBienCategoryDto } from './dto/update-bien-category.dto';
-
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CreateBienCategoryDto } from './dto/create-bien-category.dto'
+import { Repository } from 'typeorm';
+import { BienCategory } from './entities/bien-category.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class BienCategoryService {
-  create(createBienCategoryDto: CreateBienCategoryDto) {
-    return 'This action adds a new bienCategory';
+  constructor(
+    @InjectRepository(BienCategory)
+    private bienCategoryRepository: Repository<BienCategory>,
+  ) {}
+  
+  async create(createBienCategoryDto: CreateBienCategoryDto) {
+    const bienCategory = await this.bienCategoryRepository.findOne({
+      where: { name: createBienCategoryDto.name },
+    });
+    if (bienCategory) {
+      throw new HttpException('BienCategory already exists', HttpStatus.CONFLICT);
+    }
+    return this.bienCategoryRepository.save(createBienCategoryDto);
   }
 
-  findAll() {
-    return `This action returns all bienCategory`;
+  async findAll(): Promise<BienCategory[]> {
+    const bienCategories = await this.bienCategoryRepository.find();
+    if (!bienCategories) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    return bienCategories;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bienCategory`;
+  async findOne(name: string): Promise<BienCategory> {
+    const bienCategory = await this.bienCategoryRepository.findOne({ where: { name: name } });
+    if (bienCategory) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    return bienCategory;
   }
 
-  update(id: number, updateBienCategoryDto: UpdateBienCategoryDto) {
-    return `This action updates a #${id} bienCategory`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} bienCategory`;
+  async remove(name: string) {
+    const adminAccount = await this.bienCategoryRepository.findOne({ where: { name: name } });
+    if (!adminAccount) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    return this.bienCategoryRepository.delete(name);
   }
 }

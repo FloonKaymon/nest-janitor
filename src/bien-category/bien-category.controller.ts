@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { BienCategoryService } from './bien-category.service';
 import { CreateBienCategoryDto } from './dto/create-bien-category.dto';
-import { UpdateBienCategoryDto } from './dto/update-bien-category.dto';
 
 @Controller('bien-category')
 export class BienCategoryController {
@@ -27,19 +26,11 @@ export class BienCategoryController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.bienCategoryService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateBienCategoryDto: UpdateBienCategoryDto,
-  ) {
-    return this.bienCategoryService.update(+id, updateBienCategoryDto);
+    return this.bienCategoryService.findOne(id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.bienCategoryService.remove(+id);
+    return this.bienCategoryService.remove(id);
   }
 }
