@@ -1,0 +1,33 @@
+meta {
+  name: UPLOAD
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/association/uploads
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50RW1haWwiOiJvZWxzY2hsYWdlci5rYXJsQGdtYWlsLmNvbSIsImFjY291bnRJZCI6MSwiaWF0IjoxNzIxNjEyMDI0LCJleHAiOjE3MjE2OTg0MjR9.km1MZ93G2rYt-7MJWAuMjIR-W0aUT8BDok5ClsXTCJw
+}
+
+body:json {
+  {
+    "accountId": 9,
+    "name": "Test",
+    "logo": "bababoi.png",
+    "primaryColor": "dsgfh",
+    "secondaryColor": "sdfdgf"
+  }
+}
+
+body:multipart-form {
+  accountId: 1
+  name: testing
+  logo: @file(C:\Users\oelsc\Downloads\lelogo.png)
+  primaryColor: gsdf
+  secondaryColor: hzegfds
+}

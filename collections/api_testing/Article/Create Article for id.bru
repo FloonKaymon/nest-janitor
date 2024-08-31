@@ -1,0 +1,20 @@
+meta {
+  name: Create Article for id
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/association/2/article
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Letest",
+    "description": "dfgs",
+    "content": "sdgfh",
+    "createdBy": 3
+  }
+}

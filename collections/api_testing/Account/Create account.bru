@@ -1,0 +1,23 @@
+meta {
+  name: Create account
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/account
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "oelschlager.karl@gmail.com",
+    "firstName": "Karl",
+    "lastName": "Oelschlager",
+    "adress": "56 rue du Prat Dessus",
+    "town": "Plaisance-du-Touch,",
+    "postalCode": "31830",
+    "encodedPassword": "123456"
+  }
+}

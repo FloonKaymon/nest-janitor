@@ -1,0 +1,16 @@
+meta {
+  name: Patch Account
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3000/account/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "postalCode" : "3"}
+}

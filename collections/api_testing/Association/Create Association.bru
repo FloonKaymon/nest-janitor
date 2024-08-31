@@ -1,0 +1,21 @@
+meta {
+  name: Create Association
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/association
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "accountId": 1,
+    "name": "Test",
+    "logo": "bababoi.png",
+    "primaryColor": "dsgfh",
+    "secondaryColor": "sdfdgf"
+  }
+}
