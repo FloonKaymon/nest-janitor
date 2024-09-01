@@ -16,4 +16,13 @@ export class CreateSocietyDto {
 
     @IsNotEmpty()
     standardAccountId: number;
+
+    @IsNotEmpty()
+    description: string;
+
+    @IsNotEmpty()
+    website: string;
+
+    @IsNotEmpty()
+    logoUrl: string;
 }

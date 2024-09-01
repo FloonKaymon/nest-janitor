@@ -10,8 +10,5 @@ export class BienCategory {
   @JoinTable()
   biens: Bien[];
 
-  constructor(name: string) {
-    this.name = name;
-  }
 }
  

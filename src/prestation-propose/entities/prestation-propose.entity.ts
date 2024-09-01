@@ -37,7 +37,7 @@ export class PrestationPropose {
   standardAccountId: number;
 
   @Column({ name: 'prestation_category_id' })
-  prestationCategoryId: number;
+  prestationCategoryId: string;
 
   @ManyToOne(
     () => StandardAccount,

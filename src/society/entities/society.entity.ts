@@ -21,6 +21,15 @@ export class Society {
     @Column({default: 0})
     status: number;
 
+    @Column({type: 'text'})
+    description: string;
+
+    @Column()
+    website: string;
+
+    @Column()
+    logoUrl: string;
+
     @Column({name: 'standard_account_id'})
     standardAccountId: number;
 

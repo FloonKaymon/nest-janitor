@@ -1,13 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateBienCategoryDto } from './dto/create-bien-category.dto'
-import { Repository } from 'typeorm';
+import { OneToMany, Repository } from 'typeorm';
 import { BienCategory } from './entities/bien-category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Bien } from 'src/bien/entities/bien.entity';
 @Injectable()
 export class BienCategoryService {
   constructor(
     @InjectRepository(BienCategory)
     private bienCategoryRepository: Repository<BienCategory>,
+    @InjectRepository(Bien)
+    private bienRepository: Repository<Bien>,
   ) {}
   
   async create(createBienCategoryDto: CreateBienCategoryDto) {
@@ -42,5 +45,14 @@ export class BienCategoryService {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
     return this.bienCategoryRepository.delete(name);
+  }
+
+  async addUserToGroup(bienCategoryId: string, bienId: number) {
+    const user = await this.bienCategoryRepository.findOne({ where: { name: bienCategoryId }, relations: ['biens'] });
+    const group = await this.bienRepository.findOne({ where: { id: bienId } });
+
+    if (!user || !group) {
+      throw new Error('User or Group not found');
+    }
   }
 }
