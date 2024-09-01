@@ -22,13 +22,10 @@ export class PrestationPropose {
   description: string;
 
   @Column()
-  type: string;
-
-  @Column()
   price: number;
 
   @Column()
-  status: string;
+  status: string = "hidden";
 
   @Column()
   unit: string = '';

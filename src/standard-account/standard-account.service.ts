@@ -61,20 +61,23 @@ export class StandardAccountService {
     });
   }
 
-  async findOne(id: number) {
-    console.log(id);
+  async findOne(bearer: string) {
+    const token = bearer.substring(7);
+    const decoded = this.jwtService.decode(token);
+    console.log(decoded);
     return await this.standardAccountRepository.findOne({
-      where: { id: id },
+      where: {id : decoded.standardAccountId},
       relations: {
         reservations: true,
         commentaires: true,
         biens: true,
+        prestationProposes: true,
       }
     });
   }
 
-  update(id: number, updateStandardAccountDto: UpdateStandardAccountDto) {
-    return `This action updates a #${id} standardAccount`;
+  async update(id: number, updateStandardAccountDto: UpdateStandardAccountDto) {
+    return await this.standardAccountRepository.update(id, updateStandardAccountDto);
   }
 
   remove(id: number) {

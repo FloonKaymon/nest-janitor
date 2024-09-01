@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePrestationProposeDto } from './dto/create-prestation-propose.dto';
 import { UpdatePrestationProposeDto } from './dto/update-prestation-propose.dto';
+import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { PrestationPropose } from './entities/prestation-propose.entity';
 
 @Injectable()
 export class PrestationProposeService {
-  create(createPrestationProposeDto: CreatePrestationProposeDto) {
-    return 'This action adds a new prestationPropose';
+  constructor(
+    @InjectRepository(PrestationPropose)
+    private prestationProposeRepository: Repository<PrestationPropose>,
+  ) {}
+
+  async create(createPrestationProposeDto: CreatePrestationProposeDto) {
+    return await this.prestationProposeRepository.save(createPrestationProposeDto);
   }
 
-  findAll() {
-    return `This action returns all prestationPropose`;
+  async findAll() {
+    return await this.prestationProposeRepository.find({
+      relations: {
+        standardAccount: true,
+        prestationCategory: true,
+        prestationUnitaires: true,
+      },
+    });
   }
 
   findOne(id: number) {

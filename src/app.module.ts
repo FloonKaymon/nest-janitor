@@ -48,6 +48,7 @@ import { StandardAccountService } from './standard-account/standard-account.serv
 import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
   imports: [
@@ -81,6 +82,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     BienCategoryModule,
     PrestationCategoryModule,
     AuthModule,
+    StripeModule,
   ],
   controllers: [
     BienController,

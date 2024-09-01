@@ -54,7 +54,7 @@ export class StandardAccountController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return this.standardAccountService.findOne(req.user.userId);
+    return this.standardAccountService.findOne(req.headers.authorization);
   }
 
   @Get()
@@ -65,10 +65,11 @@ export class StandardAccountController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     console.log(id);
-    return this.standardAccountService.findOne(+id);
+    return this.standardAccountService.findOne(id);
   }
 
   @Patch(':id')
+  @UseInterceptors(HashPasswordInterceptor)
   update(
     @Param('id') id: string,
     @Body() updateStandardAccountDto: UpdateStandardAccountDto,
