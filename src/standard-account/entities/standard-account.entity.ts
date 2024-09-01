@@ -2,7 +2,8 @@ import { Bien } from 'src/bien/entities/bien.entity';
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
 import { PrestationPropose } from 'src/prestation-propose/entities/prestation-propose.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Society } from 'src/society/entities/society.entity';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'standardAccount' })
 export class StandardAccount {
@@ -35,6 +36,9 @@ export class StandardAccount {
 
   @Column()
   photoUrl: string;
+
+  @OneToOne(() => Society, (society) => society.standardAccount)
+  society: Society;
 
   @OneToMany(() => Bien, (biens) => biens.standardAccount)
   biens: Bien[];

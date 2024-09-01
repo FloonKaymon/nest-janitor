@@ -51,6 +51,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { StripeModule } from './stripe/stripe.module';
 import { ConfigModule } from '@nestjs/config';
 import { PdfService } from './pdf/pdf.service';
+import { SocietyModule } from './society/society.module';
+import { SocietyController } from './society/society.controller';
+import { SocietyService } from './society/society.service';
+import { Society } from './society/entities/society.entity';
 
 @Module({
   imports: [
@@ -72,6 +76,7 @@ import { PdfService } from './pdf/pdf.service';
       FactureClient,
       BienCategory,
       PrestationCategory,
+      Society
     ]),
     BienModule,
     StandardAccountModule,
@@ -86,6 +91,7 @@ import { PdfService } from './pdf/pdf.service';
     PrestationCategoryModule,
     AuthModule,
     StripeModule,
+    SocietyModule,
   ],
   controllers: [
     BienController,
@@ -99,6 +105,7 @@ import { PdfService } from './pdf/pdf.service';
     FactureClientController,
     BienCategoryController,
     PrestationCategoryController,
+    SocietyController
   ],
   providers: [
     BienService,
@@ -113,6 +120,7 @@ import { PdfService } from './pdf/pdf.service';
     BienCategoryService,
     PrestationCategoryService,
     PdfService,
+    SocietyService
   ],
 })
 export class AppModule {}
