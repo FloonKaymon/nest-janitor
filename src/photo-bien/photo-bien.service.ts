@@ -11,7 +11,7 @@ export class PhotoBienService {
     @InjectRepository(PhotoBien)
     private photoBienRepository: Repository<PhotoBien>,
   ) {}
-  
+
   async create(createPhotoBienDto: CreatePhotoBienDto) {
     const photoBien = this.photoBienRepository.create(createPhotoBienDto);
     return this.photoBienRepository.save(photoBien);

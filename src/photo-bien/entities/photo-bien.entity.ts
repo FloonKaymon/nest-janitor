@@ -1,5 +1,11 @@
 import { Bien } from 'src/bien/entities/bien.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'photo-bien' })
 export class PhotoBien {
@@ -18,5 +24,4 @@ export class PhotoBien {
   @ManyToOne(() => Bien, (bien) => bien.photoBiens)
   @JoinColumn({ name: 'bien_id' })
   bien: Bien;
-
 }

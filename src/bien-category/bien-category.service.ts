@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateBienCategoryDto } from './dto/create-bien-category.dto'
+import { CreateBienCategoryDto } from './dto/create-bien-category.dto';
 import { OneToMany, Repository } from 'typeorm';
 import { BienCategory } from './entities/bien-category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,13 +12,16 @@ export class BienCategoryService {
     @InjectRepository(Bien)
     private bienRepository: Repository<Bien>,
   ) {}
-  
+
   async create(createBienCategoryDto: CreateBienCategoryDto) {
     const bienCategory = await this.bienCategoryRepository.findOne({
       where: { name: createBienCategoryDto.name },
     });
     if (bienCategory) {
-      throw new HttpException('BienCategory already exists', HttpStatus.CONFLICT);
+      throw new HttpException(
+        'BienCategory already exists',
+        HttpStatus.CONFLICT,
+      );
     }
     return this.bienCategoryRepository.save(createBienCategoryDto);
   }
@@ -32,7 +35,9 @@ export class BienCategoryService {
   }
 
   async findOne(name: string): Promise<BienCategory> {
-    const bienCategory = await this.bienCategoryRepository.findOne({ where: { name: name } });
+    const bienCategory = await this.bienCategoryRepository.findOne({
+      where: { name: name },
+    });
     if (bienCategory) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
@@ -40,7 +45,9 @@ export class BienCategoryService {
   }
 
   async remove(name: string) {
-    const adminAccount = await this.bienCategoryRepository.findOne({ where: { name: name } });
+    const adminAccount = await this.bienCategoryRepository.findOne({
+      where: { name: name },
+    });
     if (!adminAccount) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
@@ -48,7 +55,10 @@ export class BienCategoryService {
   }
 
   async addUserToGroup(bienCategoryId: string, bienId: number) {
-    const bienCategory = await this.bienCategoryRepository.findOne({ where: { name: bienCategoryId }, relations: ['biens'] });
+    const bienCategory = await this.bienCategoryRepository.findOne({
+      where: { name: bienCategoryId },
+      relations: ['biens'],
+    });
     const bien = await this.bienRepository.findOne({ where: { id: bienId } });
     if (!bienCategory || !bien) {
       throw new Error('bienCategory or bien not found');

@@ -1,13 +1,12 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from 'class-validator';
 
 export class CreatePhotoBienDto {
-    @IsNotEmpty()
-    path: string;
+  @IsNotEmpty()
+  path: string;
 
-    @IsNotEmpty()
-    isMain: boolean;
+  @IsNotEmpty()
+  isMain: boolean;
 
-    @IsNotEmpty()
-    bienId: number;
-
+  @IsNotEmpty()
+  bienId: number;
 }

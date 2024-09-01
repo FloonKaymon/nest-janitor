@@ -46,7 +46,10 @@ export class StandardAccountController {
     }),
     HashPasswordInterceptor,
   )
-  create(@Body() createStandardAccountDto: CreateStandardAccountDto, @UploadedFile() file: Express.Multer.File) {
+  create(
+    @Body() createStandardAccountDto: CreateStandardAccountDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     createStandardAccountDto.photoUrl = file.filename;
     return this.standardAccountService.create(createStandardAccountDto);
   }

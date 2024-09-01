@@ -12,7 +12,9 @@ export class PrestationCategoryService {
     private prestationCategoryRepository: Repository<PrestationCategory>,
   ) {}
   async create(createPrestationCategoryDto: CreatePrestationCategoryDto) {
-    return await this.prestationCategoryRepository.save(createPrestationCategoryDto);
+    return await this.prestationCategoryRepository.save(
+      createPrestationCategoryDto,
+    );
   }
 
   async findAll() {

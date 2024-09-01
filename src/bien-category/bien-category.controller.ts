@@ -28,7 +28,6 @@ export class BienCategoryController {
     return this.bienCategoryService.addUserToGroup(name, id);
   }
 
-
   @Get()
   findAll() {
     return this.bienCategoryService.findAll();

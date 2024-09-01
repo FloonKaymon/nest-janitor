@@ -1,5 +1,11 @@
 import { Bien } from 'src/bien/entities/bien.entity';
-import { Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'bien-category' })
 export class BienCategory {
@@ -19,6 +25,4 @@ export class BienCategory {
     },
   })
   biens: Bien[];
-
 }
- 

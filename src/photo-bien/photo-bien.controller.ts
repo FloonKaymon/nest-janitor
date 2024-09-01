@@ -37,7 +37,10 @@ export class PhotoBienController {
       }),
     }),
   )
-  create(@Body() createPhotoBienDto: CreatePhotoBienDto, @UploadedFile() file: Express.Multer.File) {
+  create(
+    @Body() createPhotoBienDto: CreatePhotoBienDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     createPhotoBienDto.path = file.filename;
     return this.photoBienService.create(createPhotoBienDto);
   }

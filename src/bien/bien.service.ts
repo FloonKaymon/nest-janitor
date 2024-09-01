@@ -23,19 +23,19 @@ export class BienService {
         reservations: true,
         commentaires: true,
         bienCategories: true,
-      }
+      },
     });
   }
 
   async findOne(id: number) {
     return await this.bienRepository.findOne({
-      where: {id: id},
+      where: { id: id },
       relations: {
         photoBiens: true,
         reservations: true,
         commentaires: true,
         bienCategories: true,
-      }
+      },
     });
   }
 

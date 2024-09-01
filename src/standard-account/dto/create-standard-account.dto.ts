@@ -1,35 +1,31 @@
-import { IsDate, IsNotEmpty, IsOptional } from "class-validator";
+import { IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateStandardAccountDto {
+  @IsNotEmpty()
+  firstName: string;
 
-    @IsNotEmpty()
-    firstName: string;
+  @IsNotEmpty()
+  lastName: string;
 
-    @IsNotEmpty()
-    lastName: string;
+  @IsNotEmpty()
+  email: string;
 
-    @IsNotEmpty()
-    email: string;
+  @IsNotEmpty()
+  address: string;
 
-    @IsNotEmpty()
-    address: string;
+  @IsNotEmpty()
+  town: string;
 
-    @IsNotEmpty()
-    town: string;
+  @IsNotEmpty()
+  encodedPassword: string;
 
-    @IsNotEmpty()
-    encodedPassword: string;
+  @IsNotEmpty()
+  photoUrl: string;
 
-    @IsNotEmpty()
-    photoUrl: string;
+  @IsOptional()
+  subscription: number;
 
-    @IsOptional()
-    subscription: number;
-
-    @IsOptional()
-    @IsDate()
-    subscriptionDate: Date;
-
-
-
+  @IsOptional()
+  @IsDate()
+  subscriptionDate: Date;
 }

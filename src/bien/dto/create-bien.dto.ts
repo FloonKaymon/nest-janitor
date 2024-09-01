@@ -1,31 +1,30 @@
-import { IsNotEmpty, IsOptional } from "class-validator";
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateBienDto {
-    @IsNotEmpty()
-    description: string;
+  @IsNotEmpty()
+  description: string;
 
-    @IsNotEmpty()
-    address: string;
+  @IsNotEmpty()
+  address: string;
 
-    @IsNotEmpty()
-    town: string;
+  @IsNotEmpty()
+  town: string;
 
-    @IsNotEmpty()
-    standardAccountId: number;
+  @IsNotEmpty()
+  standardAccountId: number;
 
-    @IsOptional()
-    numberOfRooms: number;
+  @IsOptional()
+  numberOfRooms: number;
 
-    @IsOptional()
-    personCapacity: number;
-    
-    @IsOptional()
-    surface: number;
-    
-    @IsOptional()
-    status: string;
+  @IsOptional()
+  personCapacity: number;
 
-    @IsOptional()
-    price: number;
+  @IsOptional()
+  surface: number;
 
+  @IsOptional()
+  status: string;
+
+  @IsOptional()
+  price: number;
 }

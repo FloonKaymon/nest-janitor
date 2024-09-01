@@ -1,6 +1,12 @@
 import { Bien } from 'src/bien/entities/bien.entity';
 import { StandardAccount } from 'src/standard-account/entities/standard-account.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('commentaire')
 export class Commentaire {

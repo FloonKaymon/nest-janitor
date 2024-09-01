@@ -18,7 +18,7 @@ export class Bien {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({type: 'text'})
+  @Column({ type: 'text' })
   description: string;
 
   @Column()
@@ -42,7 +42,7 @@ export class Bien {
   @Column()
   personCapacity: number = 0;
 
-  @Column({name: 'standard_account_id'})
+  @Column({ name: 'standard_account_id' })
   standardAccountId: number;
 
   @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.biens)
@@ -60,5 +60,4 @@ export class Bien {
 
   @ManyToMany(() => BienCategory, (bienCategories) => bienCategories.biens)
   bienCategories: BienCategory[];
-
 }

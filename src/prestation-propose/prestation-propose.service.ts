@@ -13,7 +13,9 @@ export class PrestationProposeService {
   ) {}
 
   async create(createPrestationProposeDto: CreatePrestationProposeDto) {
-    return await this.prestationProposeRepository.save(createPrestationProposeDto);
+    return await this.prestationProposeRepository.save(
+      createPrestationProposeDto,
+    );
   }
 
   async findAll() {

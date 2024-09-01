@@ -7,9 +7,8 @@ export class StripeService {
   private stripe: Stripe;
 
   constructor(private configService: ConfigService) {
-    // Initialisez Stripe avec la clé secrète depuis les variables d'environnement
     this.stripe = new Stripe(this.configService.get<string>('STRIPE_SECRET_KEY'), {
-      apiVersion: '2024-06-20', // Vous pouvez utiliser la version actuelle
+      apiVersion: '2024-06-20',
     });
   }
 
@@ -21,14 +20,12 @@ export class StripeService {
   }
 
   async createProduct(name: string, description: string) {
-    // Crée le produit
     const product = await this.stripe.products.create({
-      name: name, // Nom du produit
-      description: description, // Description du produit
+      name: name,
+      description: description,
     });
     return product;
   }
-   // Méthode pour récupérer tous les produits
    async getProducts(): Promise<Stripe.ApiList<Stripe.Product>> {
     const products = await this.stripe.products.list({
     });
@@ -41,25 +38,23 @@ export class StripeService {
     return this.stripe.paymentIntents.create({
       amount,
       currency,
-      payment_method_types: ['card'], // Par défaut, cela utilise les paiements par carte
+      payment_method_types: ['card'],
     });
   }
 
-    // Crée un abonnement pour un client avec un prix spécifique
     async createSubscription(customerId: string, priceId: string) {
       return this.stripe.subscriptions.create({
         customer: customerId,
         items: [{ price: priceId }],
-        payment_behavior: 'default_incomplete', // Pour permettre la configuration de l'authentification 3D Secure
+        payment_behavior: 'default_incomplete',
         expand: ['latest_invoice.payment_intent'],
       });
     }
 
     async createNewPriceForProduct(productId: string, amount: number, interval: 'month' | 'year' | null) {
-      // Crée un nouveau prix pour le produit
       if (interval) {
         const newPrice = await this.stripe.prices.create({
-          unit_amount: amount, // Montant en centimes, ex: 2000 pour 20 EUR
+          unit_amount: amount,
           currency: 'eur',
           recurring: { interval },
           product: productId,
@@ -67,7 +62,7 @@ export class StripeService {
         return newPrice; 
       }
       const newPrice = await this.stripe.prices.create({
-        unit_amount: amount, // Montant en centimes, ex: 2000 pour 20 EUR
+        unit_amount: amount,
         currency: 'eur',
         product: productId,
       });
@@ -75,35 +70,29 @@ export class StripeService {
       return newPrice;
     }
 
-    // Création d'une facture pour un client avec des lignes d'articles
   async createInvoice(customerId: string, items: { description: string; price: number }[]) {
-    // Créer des éléments de ligne de facture
     const invoiceItems = await Promise.all(
       items.map(async (item) => {
         return await this.stripe.invoiceItems.create({
           customer: customerId,
-          amount: item.price * 100, // Montant en centimes
+          amount: item.price * 100,
           currency: 'eur',
           description: item.description,
         });
       }),
     );
 
-    // Créer la facture après avoir ajouté les éléments
     const invoice = await this.stripe.invoices.create({
       customer: customerId,
-      auto_advance: true, // Auto-finalise la facture pour que le PDF soit disponible
+      auto_advance: true,
     });
 
     return invoice;
   }
 
-  // Ajoutez cette méthode pour récupérer le PDF de la facture
   async finalizeInvoice(invoiceId: string) {
-    // Finalise la facture pour générer le PDF
     const finalizedInvoice = await this.stripe.invoices.finalizeInvoice(invoiceId);
 
-    // Retourne le lien du PDF
-    return finalizedInvoice.invoice_pdf; // URL vers le PDF généré par Stripe
+    return finalizedInvoice.invoice_pdf;
   }
 }

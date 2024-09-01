@@ -17,14 +17,12 @@ export class CommentaireService {
   }
 
   async findAll() {
-    return await this.commentaireRepository.find(
-      {
-        relations: {
-          bien: true,
-          standardAccount: true,
-        }
-      }
-    );
+    return await this.commentaireRepository.find({
+      relations: {
+        bien: true,
+        standardAccount: true,
+      },
+    });
   }
 
   findOne(id: number) {

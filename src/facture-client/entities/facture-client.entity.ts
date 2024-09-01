@@ -30,5 +30,4 @@ export class FactureClient {
 
   @OneToOne(() => Reservation, (reservation) => reservation.factureClient)
   reservation: Reservation;
-
 }

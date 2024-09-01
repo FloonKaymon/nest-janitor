@@ -16,13 +16,13 @@ export class StandardAccount {
   @Column()
   lastName: string;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   type: number;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   subscription: number;
 
-  @Column({type: 'datetime', default: () => "'2100-03-01 00:00:00'"})
+  @Column({ type: 'datetime', default: () => "'2100-03-01 00:00:00'" })
   @IsDate()
   subscriptionDate: Date;
 
@@ -41,7 +41,10 @@ export class StandardAccount {
   @Column()
   photoUrl: string;
 
-  @OneToMany(() => PrestationPropose , (prestationPropose) => prestationPropose.standardAccount)
+  @OneToMany(
+    () => PrestationPropose,
+    (prestationPropose) => prestationPropose.standardAccount,
+  )
   prestationProposes: PrestationPropose[];
 
   @OneToMany(() => Bien, (biens) => biens.standardAccount)
@@ -52,5 +55,4 @@ export class StandardAccount {
 
   @OneToMany(() => Commentaire, (commentaires) => commentaires.standardAccount)
   commentaires: Commentaire[];
-
 }

@@ -34,12 +34,14 @@ export class StandardAccountService {
     if (standardAccount == null) {
       throw new UnauthorizedException();
     }
-    const payload = { standardAccountEmail: standardAccount.email, standardAccountId: standardAccount.id };
+    const payload = {
+      standardAccountEmail: standardAccount.email,
+      standardAccountId: standardAccount.id,
+    };
     return await {
       access_token: this.jwtService.sign(payload),
     };
   }
-
 
   async create(createStandardAccountDto: CreateStandardAccountDto) {
     const standardAccount = await this.standardAccountRepository.findOne({
@@ -58,7 +60,7 @@ export class StandardAccountService {
         commentaires: true,
         biens: true,
         prestationProposes: true,
-      }
+      },
     });
   }
 
@@ -67,18 +69,21 @@ export class StandardAccountService {
     const decoded = this.jwtService.decode(token);
     console.log(decoded);
     return await this.standardAccountRepository.findOne({
-      where: {id : decoded.standardAccountId},
+      where: { id: decoded.standardAccountId },
       relations: {
         reservations: true,
         commentaires: true,
         biens: true,
         prestationProposes: true,
-      }
+      },
     });
   }
 
   async update(id: number, updateStandardAccountDto: UpdateStandardAccountDto) {
-    return await this.standardAccountRepository.update(id, updateStandardAccountDto);
+    return await this.standardAccountRepository.update(
+      id,
+      updateStandardAccountDto,
+    );
   }
 
   remove(id: number) {

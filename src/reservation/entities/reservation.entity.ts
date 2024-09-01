@@ -23,7 +23,7 @@ export class Reservation {
   @Column()
   endDate: Date;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   lateCheckOut: number;
 
   @Column()
@@ -54,5 +54,4 @@ export class Reservation {
 
   @OneToOne(() => FactureClient, (factureClient) => factureClient.reservation)
   factureClient: FactureClient;
-
 }

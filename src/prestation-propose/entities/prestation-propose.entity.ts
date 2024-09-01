@@ -24,7 +24,7 @@ export class PrestationPropose {
   @Column()
   price: number;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   status: number;
 
   @Column()
@@ -33,13 +33,13 @@ export class PrestationPropose {
   @Column()
   voyagerPay: number;
 
-  @Column({default: ''})
+  @Column({ default: '' })
   society: string;
 
   @Column()
   justificatif: string;
 
-  @Column({default: ''})
+  @Column({ default: '' })
   website: string;
 
   @Column({ name: 'standard_account_id' })
@@ -48,10 +48,13 @@ export class PrestationPropose {
   @Column({ name: 'prestation_category_id' })
   prestationCategoryId: string;
 
-  @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.prestationProposes)
+  @ManyToOne(
+    () => StandardAccount,
+    (standardAccount) => standardAccount.prestationProposes,
+  )
   @JoinColumn({ name: 'standard_account_id' })
   standardAccount: StandardAccount;
-  
+
   @ManyToOne(
     () => PrestationCategory,
     (prestationCategory) => prestationCategory.prestationProposes,
