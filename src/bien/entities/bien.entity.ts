@@ -18,7 +18,7 @@ export class Bien {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({type: 'text'})
   description: string;
 
   @Column()
