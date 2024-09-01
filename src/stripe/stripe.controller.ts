@@ -5,8 +5,6 @@ import { StripeService } from './stripe.service';
 export class StripeController {
   constructor(private readonly stripeService: StripeService) {}
 
-
-
   @Post('create-customer')
   async createCustomer(@Body('email') email: string, @Body('name') name: string) {
     return this.stripeService.createCustomer(email, name);

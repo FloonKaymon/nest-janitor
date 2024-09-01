@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePrestationProposeDto } from './dto/create-prestation-propose.dto';
 import { UpdatePrestationProposeDto } from './dto/update-prestation-propose.dto';
-import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PrestationPropose } from './entities/prestation-propose.entity';

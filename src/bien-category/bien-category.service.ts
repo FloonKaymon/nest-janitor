@@ -48,11 +48,15 @@ export class BienCategoryService {
   }
 
   async addUserToGroup(bienCategoryId: string, bienId: number) {
-    const user = await this.bienCategoryRepository.findOne({ where: { name: bienCategoryId }, relations: ['biens'] });
-    const group = await this.bienRepository.findOne({ where: { id: bienId } });
-
-    if (!user || !group) {
-      throw new Error('User or Group not found');
+    const bienCategory = await this.bienCategoryRepository.findOne({ where: { name: bienCategoryId }, relations: ['biens'] });
+    const bien = await this.bienRepository.findOne({ where: { id: bienId } });
+    if (!bienCategory || !bien) {
+      throw new Error('bienCategory or bien not found');
     }
+    // Ajouter le groupe à l'utilisateur
+    bienCategory.biens.push(bien);
+
+    // Sauvegarder l'utilisateur avec le groupe associé
+    return await this.bienRepository.save(bien);
   }
 }

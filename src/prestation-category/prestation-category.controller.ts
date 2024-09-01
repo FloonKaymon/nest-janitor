@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PrestationCategoryService } from './prestation-category.service';
 import { CreatePrestationCategoryDto } from './dto/create-prestation-category.dto';
 import { UpdatePrestationCategoryDto } from './dto/update-prestation-category.dto';
+import { JwtAuthGuard } from 'src/auth/authguard';
 
 @Controller('prestation-category')
 export class PrestationCategoryController {
@@ -18,6 +20,7 @@ export class PrestationCategoryController {
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createPrestationCategoryDto: CreatePrestationCategoryDto) {
     return this.prestationCategoryService.create(createPrestationCategoryDto);
   }
@@ -33,6 +36,7 @@ export class PrestationCategoryController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: string,
     @Body() updatePrestationCategoryDto: UpdatePrestationCategoryDto,
@@ -44,6 +48,7 @@ export class PrestationCategoryController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.prestationCategoryService.remove(+id);
   }

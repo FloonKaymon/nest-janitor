@@ -31,10 +31,4 @@ export class FactureClient {
   @OneToOne(() => Reservation, (reservation) => reservation.factureClient)
   reservation: Reservation;
 
-  constructor(id: number, date: Date, status: string, url: string) {
-    this.id = id;
-    this.date = date;
-    this.status = status;
-    this.url = url;
-  }
 }

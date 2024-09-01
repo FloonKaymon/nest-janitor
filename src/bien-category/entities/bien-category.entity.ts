@@ -7,7 +7,17 @@ export class BienCategory {
   name: string;
 
   @ManyToMany(() => Bien, (biens) => biens.bienCategories)
-  @JoinTable()
+  @JoinTable({
+    name: 'bien_category_bien',
+    joinColumn: {
+      name: 'bienCategoryId',
+      referencedColumnName: 'name',
+    },
+    inverseJoinColumn: {
+      name: 'bienId',
+      referencedColumnName: 'id',
+    },
+  })
   biens: Bien[];
 
 }

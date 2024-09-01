@@ -97,4 +97,13 @@ export class StripeService {
 
     return invoice;
   }
+
+  // Ajoutez cette méthode pour récupérer le PDF de la facture
+  async finalizeInvoice(invoiceId: string) {
+    // Finalise la facture pour générer le PDF
+    const finalizedInvoice = await this.stripe.invoices.finalizeInvoice(invoiceId);
+
+    // Retourne le lien du PDF
+    return finalizedInvoice.invoice_pdf; // URL vers le PDF généré par Stripe
+  }
 }

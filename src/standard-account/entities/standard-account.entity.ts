@@ -1,9 +1,9 @@
+import { IsDate } from 'class-validator';
 import { Bien } from 'src/bien/entities/bien.entity';
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
 import { PrestationPropose } from 'src/prestation-propose/entities/prestation-propose.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
-import { Society } from 'src/society/entities/society.entity';
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'standardAccount' })
 export class StandardAccount {
@@ -16,11 +16,15 @@ export class StandardAccount {
   @Column()
   lastName: string;
 
-  @Column({default: ''})
-  societyName: string;
-
-  @Column({default: -1})
+  @Column({default: 0})
   type: number;
+
+  @Column({default: 0})
+  subscription: number;
+
+  @Column({type: 'datetime', default: () => "'2100-03-01 00:00:00'"})
+  @IsDate()
+  subscriptionDate: Date;
 
   @Column({ unique: true })
   email: string;
@@ -37,8 +41,8 @@ export class StandardAccount {
   @Column()
   photoUrl: string;
 
-  @OneToOne(() => Society, (society) => society.standardAccount)
-  society: Society;
+  @OneToMany(() => PrestationPropose , (prestationPropose) => prestationPropose.standardAccount)
+  prestationProposes: PrestationPropose[];
 
   @OneToMany(() => Bien, (biens) => biens.standardAccount)
   biens: Bien[];
@@ -48,11 +52,5 @@ export class StandardAccount {
 
   @OneToMany(() => Commentaire, (commentaires) => commentaires.standardAccount)
   commentaires: Commentaire[];
-
-  @OneToMany(
-    () => PrestationPropose,
-    (prestationProposes) => prestationProposes.standardAccount,
-  )
-  prestationProposes: PrestationPropose[];
 
 }

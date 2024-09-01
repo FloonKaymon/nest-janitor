@@ -5,7 +5,6 @@ import { BienModule } from './bien/bien.module';
 import { StandardAccountModule } from './standard-account/standard-account.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { PhotoBienModule } from './photo-bien/photo-bien.module';
-import { AdminAccountModule } from './admin-account/admin-account.module';
 import { CommentaireModule } from './commentaire/commentaire.module';
 import { PrestationProposeModule } from './prestation-propose/prestation-propose.module';
 import { PrestationUnitaireModule } from './prestation-unitaire/prestation-unitaire.module';
@@ -13,9 +12,6 @@ import { FactureClientModule } from './facture-client/facture-client.module';
 import { BienCategoryModule } from './bien-category/bien-category.module';
 import { PrestationCategoryModule } from './prestation-category/prestation-category.module';
 import { BienService } from './bien/bien.service';
-import { AdminAccountController } from './admin-account/admin-account.controller';
-import { AdminAccountService } from './admin-account/admin-account.service';
-import { AdminAccount } from './admin-account/entities/admin-account.entity';
 import { BienCategoryController } from './bien-category/bien-category.controller';
 import { BienCategoryService } from './bien-category/bien-category.service';
 import { BienCategory } from './bien-category/entities/bien-category.entity';
@@ -51,10 +47,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { StripeModule } from './stripe/stripe.module';
 import { ConfigModule } from '@nestjs/config';
 import { PdfService } from './pdf/pdf.service';
-import { SocietyModule } from './society/society.module';
-import { SocietyController } from './society/society.controller';
-import { SocietyService } from './society/society.service';
-import { Society } from './society/entities/society.entity';
 
 @Module({
   imports: [
@@ -69,20 +61,17 @@ import { Society } from './society/entities/society.entity';
       StandardAccount,
       Reservation,
       PhotoBien,
-      AdminAccount,
       Commentaire,
       PrestationPropose,
       PrestationUnitaire,
       FactureClient,
       BienCategory,
       PrestationCategory,
-      Society
     ]),
     BienModule,
     StandardAccountModule,
     ReservationModule,
     PhotoBienModule,
-    AdminAccountModule,
     CommentaireModule,
     PrestationProposeModule,
     PrestationUnitaireModule,
@@ -91,28 +80,24 @@ import { Society } from './society/entities/society.entity';
     PrestationCategoryModule,
     AuthModule,
     StripeModule,
-    SocietyModule,
   ],
   controllers: [
     BienController,
     StandardAccountController,
     ReservationController,
     PhotoBienController,
-    AdminAccountController,
     CommentaireController,
     PrestationProposeController,
     PrestationUnitaireController,
     FactureClientController,
     BienCategoryController,
     PrestationCategoryController,
-    SocietyController
   ],
   providers: [
     BienService,
     StandardAccountService,
     ReservationService,
     PhotoBienService,
-    AdminAccountService,
     CommentaireService,
     PrestationProposeService,
     PrestationUnitaireService,
@@ -120,7 +105,6 @@ import { Society } from './society/entities/society.entity';
     BienCategoryService,
     PrestationCategoryService,
     PdfService,
-    SocietyService
   ],
 })
 export class AppModule {}

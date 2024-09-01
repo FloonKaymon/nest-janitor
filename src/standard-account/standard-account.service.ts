@@ -58,7 +58,6 @@ export class StandardAccountService {
         commentaires: true,
         biens: true,
         prestationProposes: true,
-        society: true,
       }
     });
   }
@@ -74,7 +73,6 @@ export class StandardAccountService {
         commentaires: true,
         biens: true,
         prestationProposes: true,
-        society: true,
       }
     });
   }

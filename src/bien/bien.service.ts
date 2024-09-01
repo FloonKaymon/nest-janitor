@@ -39,11 +39,11 @@ export class BienService {
     });
   }
 
-  update(id: number, updateBienDto: UpdateBienDto) {
-    return `This action updates a #${id} bien`;
+  async update(id: number, updateBienDto: UpdateBienDto) {
+    return await this.bienRepository.update(id, updateBienDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bien`;
+  async remove(id: number) {
+    return await this.bienRepository.delete(id);
   }
 }

@@ -23,8 +23,8 @@ export class Reservation {
   @Column()
   endDate: Date;
 
-  @Column()
-  lateCheckOut: boolean;
+  @Column({default: 0})
+  lateCheckOut: number;
 
   @Column()
   status: string;
