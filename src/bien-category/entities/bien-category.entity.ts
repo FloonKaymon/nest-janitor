@@ -1,15 +1,17 @@
 import { Bien } from 'src/bien/entities/bien.entity';
-import { Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'bien-category' })
 export class BienCategory {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   name: string;
 
   @ManyToMany(() => Bien, (biens) => biens.bienCategories)
+  @JoinTable()
   biens: Bien[];
 
   constructor(name: string) {
     this.name = name;
   }
 }
+ 

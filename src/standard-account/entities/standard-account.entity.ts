@@ -15,11 +15,11 @@ export class StandardAccount {
   @Column()
   lastName: string;
 
-  @Column()
-  societyName: string = '';
+  @Column({default: ''})
+  societyName: string;
 
-  @Column()
-  type: string;
+  @Column({default: -1})
+  type: number;
 
   @Column({ unique: true })
   email: string;

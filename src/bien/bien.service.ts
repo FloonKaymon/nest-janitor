@@ -22,6 +22,7 @@ export class BienService {
         photoBiens: true,
         reservations: true,
         commentaires: true,
+        bienCategories: true,
       }
     });
   }
@@ -33,6 +34,7 @@ export class BienService {
         photoBiens: true,
         reservations: true,
         commentaires: true,
+        bienCategories: true,
       }
     });
   }

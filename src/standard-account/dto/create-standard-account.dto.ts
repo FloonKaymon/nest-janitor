@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateStandardAccountDto {
 
@@ -22,5 +22,8 @@ export class CreateStandardAccountDto {
 
     @IsNotEmpty()
     photoUrl: string;
+
+    @IsOptional()
+    societyName: string;
 
 }

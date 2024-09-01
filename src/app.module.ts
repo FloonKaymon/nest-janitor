@@ -49,9 +49,12 @@ import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { StripeModule } from './stripe/stripe.module';
+import { ConfigModule } from '@nestjs/config';
+import { PdfService } from './pdf/pdf.service';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(dataSourceOptions),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -109,6 +112,7 @@ import { StripeModule } from './stripe/stripe.module';
     FactureClientService,
     BienCategoryService,
     PrestationCategoryService,
+    PdfService,
   ],
 })
 export class AppModule {}
