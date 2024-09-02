@@ -12,6 +12,7 @@ import { PrestationCategoryService } from './prestation-category.service';
 import { CreatePrestationCategoryDto } from './dto/create-prestation-category.dto';
 import { UpdatePrestationCategoryDto } from './dto/update-prestation-category.dto';
 import { JwtAuthGuard } from 'src/auth/authguard';
+import { parse } from 'path';
 
 @Controller('prestation-category')
 export class PrestationCategoryController {
@@ -30,19 +31,19 @@ export class PrestationCategoryController {
     return this.prestationCategoryService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.prestationCategoryService.findOne(+id);
-  }
+
 
   @Get('available')
-  findAvailablePrestationPropose(
-    @Body() prestationCategoryId: string,
-    @Body() date: Date,
+  findAvailable(
+    @Body() body,
   ) {
+    console.log('prestationCategoryId', body.prestationCategoryId);
+    console.log('date', body.date);
+    const parsedDate = new Date(body.date);
+    console.log('parsedDate', parsedDate);
     return this.prestationCategoryService.findAvailablePrestationPropose(
-      prestationCategoryId,
-      date
+      body.prestationCategoryId,
+      parsedDate,
     );
   }
 

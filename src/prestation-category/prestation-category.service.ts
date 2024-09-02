@@ -29,18 +29,18 @@ export class PrestationCategoryService {
   }
 
   async findAvailablePrestationPropose(prestationCategoryId: string, date: Date) {
+    console.log('prestationCategoryId', prestationCategoryId);
+    console.log('date', date);
     return await this.prestationProposeRepository
-      .createQueryBuilder('prestationPropose')
-      .leftJoinAndSelect('prestationPropose.prestationUnitaires', 'prestationUnitaire')
-      .where('prestationPropose.status = :status', { status: 1 })
-      .andWhere('prestationPropose.prestationCategoryId = :prestationCategoryId', { prestationCategoryId })
-      .andWhere('prestationUnitaire.date IS NULL OR prestationUnitaire.date != :date', { date })
-      .getOne();
-  }
+    .createQueryBuilder('prestationPropose')
+    .leftJoinAndSelect('prestationPropose.prestationUnitaires', 'prestationUnitaire')
+    .where('prestationPropose.status = :status', { status: 1 })
+    .andWhere('prestationPropose.prestationCategoryId = :prestationCategoryId', { prestationCategoryId })
+    .andWhere('(prestationUnitaire.date IS NULL OR prestationUnitaire.date != :date)', { date })
+    .getOne();
+}
 
-  findOne(id: number) {
-    return `This action returns a #${id} prestationCategory`;
-  }
+
 
   update(id: number, updatePrestationCategoryDto: UpdatePrestationCategoryDto) {
     return `This action updates a #${id} prestationCategory`;
