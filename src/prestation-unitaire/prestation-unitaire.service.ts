@@ -4,12 +4,14 @@ import { UpdatePrestationUnitaireDto } from './dto/update-prestation-unitaire.dt
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PrestationUnitaire } from './entities/prestation-unitaire.entity';
+import { PrestationCategory } from 'src/prestation-category/entities/prestation-category.entity';
 
 @Injectable()
 export class PrestationUnitaireService {
   constructor(
     @InjectRepository(PrestationUnitaire)
     private prestationUnitaireRepository: Repository<PrestationUnitaire>,
+
   ) {}
   
   async create(createPrestationUnitaireDto: CreatePrestationUnitaireDto) {

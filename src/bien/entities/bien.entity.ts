@@ -12,6 +12,7 @@ import {
 import { Reservation } from 'src/reservation/entities/reservation.entity';
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
 import { BienCategory } from 'src/bien-category/entities/bien-category.entity';
+import { PrestationUnitaire } from 'src/prestation-unitaire/entities/prestation-unitaire.entity';
 
 @Entity({ name: 'bien' })
 export class Bien {
@@ -58,6 +59,10 @@ export class Bien {
   @OneToMany(() => Commentaire, (commentaires) => commentaires.bien, { cascade: true })
   commentaires: Commentaire[];
 
+  @OneToMany(() => PrestationUnitaire, (prestationUnitaires) => prestationUnitaires.bien, { cascade: true })
+  prestationUnitaires: PrestationUnitaire[];
+
   @ManyToMany(() => BienCategory, (bienCategories) => bienCategories.biens)
   bienCategories: BienCategory[];
+
 }

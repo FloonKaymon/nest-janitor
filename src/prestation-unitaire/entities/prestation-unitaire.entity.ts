@@ -1,3 +1,4 @@
+import { Bien } from 'src/bien/entities/bien.entity';
 import { FactureClient } from 'src/facture-client/entities/facture-client.entity';
 import { PrestationPropose } from 'src/prestation-propose/entities/prestation-propose.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
@@ -14,7 +15,7 @@ export class PrestationUnitaire {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'text' })
   informationComplementaire: string;
 
   @Column()
@@ -29,11 +30,18 @@ export class PrestationUnitaire {
   @Column({ name: 'prestation_propose_id' })
   prestationProposeId: number;
 
-  @Column({ name: 'reservation_id' })
+  @Column({ name: 'reservation_id', nullable: true })
   reservationId: number;
 
   @Column({ name: 'facture_client_id' })
   factureClientId: number;
+
+  @Column({ name: 'bien_id', nullable: true })
+  bienId: number;
+
+  @ManyToOne(() => Bien, (bien) => bien.prestationUnitaires)
+  @JoinColumn({ name: 'bien_id' })
+  bien: Bien;
 
   @ManyToOne(
     () => PrestationPropose,
