@@ -36,8 +36,8 @@ export class Bien {
   @Column()
   surface: number = 0;
 
-  @Column()
-  status: string = '0';
+  @Column({default: 0})
+  status: number;
 
   @Column()
   personCapacity: number = 0;

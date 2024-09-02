@@ -28,6 +28,11 @@ export class BienController {
     return this.bienService.findAll();
   }
 
+  @Get()
+  findAllWithStatus(@Body() status: number) {
+    return this.bienService.findAllWithStatus(status);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.bienService.findOne(+id);

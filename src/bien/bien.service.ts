@@ -27,6 +27,18 @@ export class BienService {
     });
   }
 
+  async findAllWithStatus(status: number) {
+    return await this.bienRepository.find({
+      where: { status: status },
+      relations: {
+        photoBiens: true,
+        reservations: true,
+        commentaires: true,
+        bienCategories: true,
+      },
+    });
+  }
+
   async findOne(id: number) {
     return await this.bienRepository.findOne({
       where: { id: id },

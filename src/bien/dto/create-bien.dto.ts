@@ -23,7 +23,7 @@ export class CreateBienDto {
   surface: number;
 
   @IsOptional()
-  status: string;
+  status: number;
 
   @IsOptional()
   price: number;

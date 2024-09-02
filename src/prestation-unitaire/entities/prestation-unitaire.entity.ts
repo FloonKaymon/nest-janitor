@@ -20,6 +20,12 @@ export class PrestationUnitaire {
   @Column()
   nbrUnit: number;
 
+  @Column({type: 'datetime'})
+  date: Date;
+
+  @Column({default: 60})
+  duree: number;
+
   @Column({ name: 'prestation_propose_id' })
   prestationProposeId: number;
 
