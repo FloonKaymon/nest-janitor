@@ -35,6 +35,17 @@ export class PrestationCategoryController {
     return this.prestationCategoryService.findOne(+id);
   }
 
+  @Get('available/')
+  findAvailablePrestationPropose(
+    @Body() prestationCategoryId: string,
+    @Body() date: Date,
+  ) {
+    return this.prestationCategoryService.findAvailablePrestationPropose(
+      prestationCategoryId,
+      date
+    );
+  }
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   update(
