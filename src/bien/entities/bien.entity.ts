@@ -45,17 +45,17 @@ export class Bien {
   @Column({ name: 'standard_account_id' })
   standardAccountId: number;
 
-  @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.biens)
+  @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.biens, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'standard_account_id' })
   standardAccount: StandardAccount;
 
-  @OneToMany(() => PhotoBien, (photoBiens) => photoBiens.bien)
+  @OneToMany(() => PhotoBien, (photoBiens) => photoBiens.bien, { cascade: true })
   photoBiens: PhotoBien[];
 
-  @OneToMany(() => Reservation, (reservations) => reservations.bien)
+  @OneToMany(() => Reservation, (reservations) => reservations.bien, { cascade: true })
   reservations: Reservation[];
 
-  @OneToMany(() => Commentaire, (commentaires) => commentaires.bien)
+  @OneToMany(() => Commentaire, (commentaires) => commentaires.bien, { cascade: true })
   commentaires: Commentaire[];
 
   @ManyToMany(() => BienCategory, (bienCategories) => bienCategories.biens)
