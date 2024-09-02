@@ -35,7 +35,7 @@ export class PrestationCategoryController {
     return this.prestationCategoryService.findOne(+id);
   }
 
-  @Get('available/')
+  @Get('available')
   findAvailablePrestationPropose(
     @Body() prestationCategoryId: string,
     @Body() date: Date,
