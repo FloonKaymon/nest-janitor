@@ -33,7 +33,7 @@ export class PrestationUnitaire {
   @Column({ name: 'reservation_id', nullable: true })
   reservationId: number;
 
-  @Column({ name: 'facture_client_id' })
+  @Column({ name: 'facture_client_id', nullable: true })
   factureClientId: number;
 
   @Column({ name: 'bien_id', nullable: true })
