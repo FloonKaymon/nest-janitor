@@ -27,7 +27,7 @@ export class BienCategoryService {
   }
 
   async findAll(): Promise<BienCategory[]> {
-    const bienCategories = await this.bienCategoryRepository.find();
+    const bienCategories = await this.bienCategoryRepository.find({relations: ['biens']});
     if (!bienCategories) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
@@ -36,7 +36,7 @@ export class BienCategoryService {
 
   async findOne(name: string): Promise<BienCategory> {
     const bienCategory = await this.bienCategoryRepository.findOne({
-      where: { name: name },
+      where: { name: name }, relations: ['biens']
     });
     if (bienCategory) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);

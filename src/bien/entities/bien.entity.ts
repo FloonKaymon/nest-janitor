@@ -29,13 +29,13 @@ export class Bien {
   town: string;
 
   @Column()
-  numberOfRooms: number = 0;
+  numberOfRooms : number;
+
+  @Column({default: 0})
+  price: number;
 
   @Column()
-  price: number = 0;
-
-  @Column()
-  surface: number = 0;
+  surface: number;
 
   @Column({default: 0})
   status: number;
@@ -43,8 +43,23 @@ export class Bien {
   @Column()
   personCapacity: number = 0;
 
+  @Column({default: 0})
+  hasWifi: number;
+
+  @Column({default: 0})
+  hasParking: number;
+
+  @Column({default: 0})
+  hasBalcony: number;
+
+  @Column({default: 0})
+  hasGarden: number;
+
   @Column({ name: 'standard_account_id' })
   standardAccountId: number;
+
+  @Column({ name: 'bien_category_id' })
+  bienCategoryId: string;
 
   @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.biens, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'standard_account_id' })
@@ -62,7 +77,8 @@ export class Bien {
   @OneToMany(() => PrestationUnitaire, (prestationUnitaires) => prestationUnitaires.bien, { cascade: true })
   prestationUnitaires: PrestationUnitaire[];
 
-  @ManyToMany(() => BienCategory, (bienCategories) => bienCategories.biens)
-  bienCategories: BienCategory[];
+  @ManyToOne(() => BienCategory, (bienCategory) => bienCategory.biens, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'bien_category_id' })
+  bienCategory: BienCategory;
 
 }

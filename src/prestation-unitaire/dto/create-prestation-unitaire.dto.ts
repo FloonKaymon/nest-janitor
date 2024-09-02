@@ -1,4 +1,3 @@
-import { inheritTransformationMetadata } from "@nestjs/mapped-types";
 import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreatePrestationUnitaireDto {

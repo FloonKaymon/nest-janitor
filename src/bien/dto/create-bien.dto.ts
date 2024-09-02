@@ -13,14 +13,26 @@ export class CreateBienDto {
   @IsNotEmpty()
   standardAccountId: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   numberOfRooms: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   personCapacity: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   surface: number;
+
+  @IsOptional()
+  hasWifi: number;
+
+  @IsOptional()
+  hasParking: number;
+
+  @IsOptional()
+  hasBalcony: number;
+
+  @IsOptional()
+  hasGarden: number;
 
   @IsOptional()
   status: number;
