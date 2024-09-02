@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePrestationUnitaireDto } from './dto/create-prestation-unitaire.dto';
 import { UpdatePrestationUnitaireDto } from './dto/update-prestation-unitaire.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { PrestationUnitaire } from './entities/prestation-unitaire.entity';
 
 @Injectable()
 export class PrestationUnitaireService {
-  create(createPrestationUnitaireDto: CreatePrestationUnitaireDto) {
-    return 'This action adds a new prestationUnitaire';
+  constructor(
+    @InjectRepository(PrestationUnitaire)
+    private prestationUnitaireRepository: Repository<PrestationUnitaire>,
+  ) {}
+  
+  async create(createPrestationUnitaireDto: CreatePrestationUnitaireDto) {
+    return await this.prestationUnitaireRepository.save(createPrestationUnitaireDto);
   }
 
-  findAll() {
-    return `This action returns all prestationUnitaire`;
+  async findAll() {
+    return await this.prestationUnitaireRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} prestationUnitaire`;
+  async findOne(id: number) {
+    return await this.prestationUnitaireRepository.findOne({where: {id : id}});
   }
 
-  update(id: number, updatePrestationUnitaireDto: UpdatePrestationUnitaireDto) {
-    return `This action updates a #${id} prestationUnitaire`;
+  async update(id: number, updatePrestationUnitaireDto: UpdatePrestationUnitaireDto) {
+    return await this.prestationUnitaireRepository.update(id, updatePrestationUnitaireDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} prestationUnitaire`;
+  async remove(id: number) {
+    return await this.prestationUnitaireRepository.delete(id);
   }
 }

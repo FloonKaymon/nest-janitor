@@ -86,7 +86,7 @@ export class StandardAccountService {
     );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} standardAccount`;
+  async remove(id: number) {
+    return await this.standardAccountRepository.delete(id);
   }
 }

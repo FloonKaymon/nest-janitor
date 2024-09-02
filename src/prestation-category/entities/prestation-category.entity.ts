@@ -12,7 +12,4 @@ export class PrestationCategory {
   )
   prestationProposes: PrestationPropose[];
 
-  constructor(name: string) {
-    this.name = name;
-  }
 }

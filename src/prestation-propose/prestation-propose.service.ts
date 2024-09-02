@@ -32,11 +32,12 @@ export class PrestationProposeService {
     return `This action returns a #${id} prestationPropose`;
   }
 
-  update(id: number, updatePrestationProposeDto: UpdatePrestationProposeDto) {
-    return `This action updates a #${id} prestationPropose`;
+  async update(id: number, updatePrestationProposeDto: UpdatePrestationProposeDto) {
+    
+    return await this.prestationProposeRepository.update(id, updatePrestationProposeDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} prestationPropose`;
+  async remove(id: number) {
+    return await this.prestationProposeRepository.delete(id);
   }
 }

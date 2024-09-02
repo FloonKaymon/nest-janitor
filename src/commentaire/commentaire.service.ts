@@ -33,7 +33,7 @@ export class CommentaireService {
     return `This action updates a #${id} commentaire`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} commentaire`;
+  async remove(id: number) {
+    return await this.commentaireRepository.delete(id);
   }
 }

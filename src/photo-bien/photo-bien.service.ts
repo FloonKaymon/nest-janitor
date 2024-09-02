@@ -29,7 +29,7 @@ export class PhotoBienService {
     return `This action updates a #${id} photoBien`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} photoBien`;
+  async remove(id: number) {
+    return await this.photoBienRepository.delete(id);
   }
 }
