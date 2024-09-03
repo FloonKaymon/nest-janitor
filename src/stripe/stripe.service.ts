@@ -34,7 +34,7 @@ export class StripeService {
   }
 
 
-  async createPaymentIntent(email: string, name: string, amount: number, currency : string, paymentMethodId: string) {
+  async createPaymentIntent(email: string, name: string, amount: number, currency : string, paymentMethodId: string, return_url: string) {
     // Recherchez le client existant par email
     const existingCustomers = await this.stripe.customers.list({
       email,
@@ -55,6 +55,7 @@ export class StripeService {
       customer: customer.id,
       payment_method: paymentMethodId,
       confirm: true,
+      return_url: return_url,
     });
     return paymentIntent;
   }

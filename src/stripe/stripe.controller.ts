@@ -20,8 +20,9 @@ export class StripeController {
     @Body('amount') amount: number,
     @Body('currency') currency: string,
     @Body('paymentMethodId') paymentMethodId: string,
+    @Body('return_url') return_url: string,
   ) {
-    return this.stripeService.createPaymentIntent(email, name, amount, currency, paymentMethodId);
+    return this.stripeService.createPaymentIntent(email, name, amount, currency, paymentMethodId, return_url);
   }
 
   
