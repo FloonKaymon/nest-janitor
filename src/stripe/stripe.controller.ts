@@ -15,11 +15,16 @@ export class StripeController {
 
   @Post('create-payment-intent')
   async createPaymentIntent(
+    @Body('email') email: string,
+    @Body('name') name: string,
     @Body('amount') amount: number,
     @Body('currency') currency: string,
+    @Body('paymentMethodId') paymentMethodId: string,
   ) {
-    return this.stripeService.createPaymentIntent(amount, currency);
+    return this.stripeService.createPaymentIntent(email, name, amount, currency, paymentMethodId);
   }
+
+  
 
   @Post('create-product')
   async createProduct(
@@ -39,6 +44,7 @@ export class StripeController {
     @Body('email') email: string,
     @Body('name') name: string,
     @Body('priceId') priceId: string,
+    @Body('paymentMethodId') paymentMethodId: string,
   ) {
     return this.stripeService.createSubscription(email, name, priceId);
   }

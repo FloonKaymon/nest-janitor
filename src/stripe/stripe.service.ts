@@ -34,13 +34,31 @@ export class StripeService {
   }
 
 
-  async createPaymentIntent(amount: number, currency: string): Promise<Stripe.PaymentIntent> {
-    return this.stripe.paymentIntents.create({
+  async createPaymentIntent(email: string, name: string, amount: number, currency : string, paymentMethodId: string) {
+    // Recherchez le client existant par email
+    const existingCustomers = await this.stripe.customers.list({
+      email,
+      limit: 1,
+    });
+
+    let customer;
+    if (existingCustomers.data.length > 0) {
+      customer = existingCustomers.data[0];
+    } else {
+      customer = await this.createCustomer(email, name);
+    }
+
+    // Créez un paiementIntent
+    const paymentIntent = await this.stripe.paymentIntents.create({
       amount,
       currency,
-      payment_method_types: ['card'],
+      customer: customer.id,
+      payment_method: paymentMethodId,
+      confirm: true,
     });
+    return paymentIntent;
   }
+  
 
     async createNewPriceForProduct(productId: string, amount: number, interval: 'month' | 'year' | null) {
       if (interval) {
