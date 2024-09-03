@@ -33,7 +33,7 @@ export class PrestationCategoryController {
 
 
 
-  @Get('available')
+  @Post('available')
   findAvailable(
     @Body() body,
   ) {

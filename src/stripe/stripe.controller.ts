@@ -34,16 +34,12 @@ export class StripeController {
     return this.stripeService.getProducts();
   }
 
-  @Post('create-new-price')
-  async createNewPrice(
-    @Body('productId') productId: string,
-    @Body('amount') amount: number,
-    @Body('interval') interval: 'month' | 'year' | null,
+  @Post('create-subscription')
+  async createSubscription(
+    @Body('email') email: string,
+    @Body('name') name: string,
+    @Body('priceId') priceId: string,
   ) {
-    return this.stripeService.createNewPriceForProduct(
-      productId,
-      amount,
-      interval,
-    );
+    return this.stripeService.createSubscription(email, name, priceId);
   }
 }

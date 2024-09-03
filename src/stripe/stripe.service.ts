@@ -42,15 +42,6 @@ export class StripeService {
     });
   }
 
-    async createSubscription(customerId: string, priceId: string) {
-      return this.stripe.subscriptions.create({
-        customer: customerId,
-        items: [{ price: priceId }],
-        payment_behavior: 'default_incomplete',
-        expand: ['latest_invoice.payment_intent'],
-      });
-    }
-
     async createNewPriceForProduct(productId: string, amount: number, interval: 'month' | 'year' | null) {
       if (interval) {
         const newPrice = await this.stripe.prices.create({
@@ -70,29 +61,28 @@ export class StripeService {
       return newPrice;
     }
 
-  async createInvoice(customerId: string, items: { description: string; price: number }[]) {
-    const invoiceItems = await Promise.all(
-      items.map(async (item) => {
-        return await this.stripe.invoiceItems.create({
-          customer: customerId,
-          amount: item.price * 100,
-          currency: 'eur',
-          description: item.description,
-        });
-      }),
-    );
-
-    const invoice = await this.stripe.invoices.create({
-      customer: customerId,
-      auto_advance: true,
+    async createSubscription(email: string, name: string, priceId: string) {
+      // Recherchez le client existant par email
+    const existingCustomers = await this.stripe.customers.list({
+      email,
+      limit: 1,
     });
 
-    return invoice;
-  }
+    let customer;
+    if (existingCustomers.data.length > 0) {
+      customer = existingCustomers.data[0];
+    } else {
+      customer = await this.createCustomer(email, name);
+    }
+  
+      const subscription = await this.stripe.subscriptions.create({
+        customer: customer.id,
+        items: [{ price: priceId }],
+        expand: ['latest_invoice.payment_intent'],
+      });
 
-  async finalizeInvoice(invoiceId: string) {
-    const finalizedInvoice = await this.stripe.invoices.finalizeInvoice(invoiceId);
+    const invoice = subscription.latest_invoice as Stripe.Invoice;
 
-    return finalizedInvoice.invoice_pdf;
-  }
+    const invoicePdfUrl = invoice.invoice_pdf;
+    }
 }
