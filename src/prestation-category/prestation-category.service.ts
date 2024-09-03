@@ -29,9 +29,16 @@ export class PrestationCategoryService {
   }
 
   async findWithParameters(vip: number, voyagerPay: number) {
+    if(vip === 0){
+      return await this.prestationCategoryRepository.find({
+        where: {
+          vip,
+          voyagerPay,
+        },
+      });
+    }
     return await this.prestationCategoryRepository.find({
       where: {
-        vip,
         voyagerPay,
       },
     });
