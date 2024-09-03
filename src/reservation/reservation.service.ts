@@ -12,8 +12,7 @@ export class ReservationService {
     private reservationRepository: Repository<Reservation>,
   ) {}
   async create(createReservationDto: CreateReservationDto) {
-    //const reservation = this.reservationRepository.create(createReservationDto);
-    //return await this.reservationRepository.save(reservation);
+    return await this.reservationRepository.save(createReservationDto);
   }
 
   async findAll() {

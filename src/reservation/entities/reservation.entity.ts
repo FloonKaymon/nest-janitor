@@ -26,9 +26,6 @@ export class Reservation {
   @Column({ default: 0 })
   lateCheckOut: number;
 
-  @Column()
-  status: string;
-
   @Column({ name: 'standard_account_id' })
   standardAccountId: number;
 
