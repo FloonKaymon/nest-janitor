@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { Reservation } from './entities/reservation.entity';
 
 @Injectable()
@@ -12,6 +12,10 @@ export class ReservationService {
     private reservationRepository: Repository<Reservation>,
   ) {}
   async create(createReservationDto: CreateReservationDto) {
+
+    if (await this.isConflict(createReservationDto.startDate, createReservationDto.endDate)) {
+      throw new ConflictException('There is already a reservation for the requested dates.');
+    }
     return await this.reservationRepository.save(createReservationDto);
   }
 
@@ -22,6 +26,16 @@ export class ReservationService {
         standardAccount: true,
       },
     });
+  }
+
+  async isConflict(startDate: Date, endDate: Date): Promise<boolean> {
+    const conflictingReservations = await this.reservationRepository.find({
+      where: [
+        { startDate: LessThanOrEqual(endDate), endDate: MoreThanOrEqual(startDate) },
+      ],
+    });
+
+    return conflictingReservations.length > 0;
   }
 
   findOne(id: number) {
