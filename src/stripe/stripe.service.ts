@@ -95,6 +95,18 @@ export class StripeService {
     } else {
       customer = await this.createCustomer(email, name);
     }
+
+    // Attachez la méthode de paiement au client
+    await this.stripe.paymentMethods.attach(paymentMethodId, {
+      customer: customer.id,
+    });
+
+    // Définissez la méthode de paiement par défaut pour le client
+    await this.stripe.customers.update(customer.id, {
+      invoice_settings: {
+        default_payment_method: paymentMethodId,
+      },
+    });
   
       const subscription = await this.stripe.subscriptions.create({
         customer: customer.id,
@@ -102,6 +114,7 @@ export class StripeService {
         default_payment_method: paymentMethodId,
         expand: ['latest_invoice.payment_intent'],
       });
+
 
     const invoice = subscription.latest_invoice as Stripe.Invoice;
 
