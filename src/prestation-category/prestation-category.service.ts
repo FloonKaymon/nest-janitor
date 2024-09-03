@@ -28,6 +28,15 @@ export class PrestationCategoryService {
     });
   }
 
+  async findWithParameters(vip: number, voyagerPay: number) {
+    return await this.prestationCategoryRepository.find({
+      where: {
+        vip,
+        voyagerPay,
+      },
+    });
+  }
+
   async findAvailablePrestationPropose(prestationCategoryId: string, date: Date) {
     console.log('prestationCategoryId', prestationCategoryId);
     console.log('date', date);

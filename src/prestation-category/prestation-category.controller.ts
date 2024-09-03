@@ -7,12 +7,12 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { PrestationCategoryService } from './prestation-category.service';
 import { CreatePrestationCategoryDto } from './dto/create-prestation-category.dto';
 import { UpdatePrestationCategoryDto } from './dto/update-prestation-category.dto';
 import { JwtAuthGuard } from 'src/auth/authguard';
-import { parse } from 'path';
 
 @Controller('prestation-category')
 export class PrestationCategoryController {
@@ -29,6 +29,13 @@ export class PrestationCategoryController {
   @Get()
   findAll() {
     return this.prestationCategoryService.findAll();
+  }
+
+  @Get('')
+  findWithParameters(@Query('vip') vip: string, @Query('voyagerPay') voyagerPay: string) {
+    console.log('vip', vip);
+    console.log('voyagerPay', voyagerPay);
+    return this.prestationCategoryService.findWithParameters(+vip, +voyagerPay);
   }
 
 
