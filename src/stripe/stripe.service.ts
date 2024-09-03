@@ -57,7 +57,9 @@ export class StripeService {
       confirm: true,
       return_url: return_url,
     });
-    return paymentIntent;
+    return {
+      clientSecret: paymentIntent.client_secret,
+    };
   }
   
 
