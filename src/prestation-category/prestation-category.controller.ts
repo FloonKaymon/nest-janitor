@@ -31,7 +31,7 @@ export class PrestationCategoryController {
     return this.prestationCategoryService.findAll();
   }
 
-  @Get('')
+  @Get()
   findWithParameters(@Query('vip') vip: string, @Query('voyagerPay') voyagerPay: string) {
     console.log('vip', vip);
     console.log('voyagerPay', voyagerPay);
