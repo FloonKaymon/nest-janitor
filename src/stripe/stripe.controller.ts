@@ -47,6 +47,6 @@ export class StripeController {
     @Body('priceId') priceId: string,
     @Body('paymentMethodId') paymentMethodId: string,
   ) {
-    return this.stripeService.createSubscription(email, name, priceId);
+    return this.stripeService.createSubscription(email, name, priceId, paymentMethodId);
   }
 }

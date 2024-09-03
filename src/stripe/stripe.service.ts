@@ -82,7 +82,7 @@ export class StripeService {
       return newPrice;
     }
 
-    async createSubscription(email: string, name: string, priceId: string) {
+    async createSubscription(email: string, name: string, priceId: string, paymentMethodId: string) {
       // Recherchez le client existant par email
     const existingCustomers = await this.stripe.customers.list({
       email,
@@ -99,11 +99,16 @@ export class StripeService {
       const subscription = await this.stripe.subscriptions.create({
         customer: customer.id,
         items: [{ price: priceId }],
+        default_payment_method: paymentMethodId,
         expand: ['latest_invoice.payment_intent'],
       });
 
     const invoice = subscription.latest_invoice as Stripe.Invoice;
 
     const invoicePdfUrl = invoice.invoice_pdf;
+    return {
+      subscription,
+      invoicePdfUrl,
+    };
     }
 }
