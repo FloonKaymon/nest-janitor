@@ -60,6 +60,7 @@ export class StandardAccountService {
         commentaires: true,
         biens: true,
         prestationProposes: true,
+        factureClients: true,
       },
     });
   }
@@ -75,6 +76,7 @@ export class StandardAccountService {
         commentaires: true,
         biens: true,
         prestationProposes: true,
+        factureClients: true,
       },
     });
   }
