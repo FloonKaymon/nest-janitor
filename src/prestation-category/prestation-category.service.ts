@@ -58,11 +58,11 @@ export class PrestationCategoryService {
 
 
 
-  update(id: number, updatePrestationCategoryDto: UpdatePrestationCategoryDto) {
+  update(id: string, updatePrestationCategoryDto: UpdatePrestationCategoryDto) {
     return `This action updates a #${id} prestationCategory`;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.prestationCategoryRepository.delete(id);
   }
 }

@@ -44,10 +44,7 @@ export class PrestationCategoryController {
   findAvailable(
     @Body() body,
   ) {
-    console.log('prestationCategoryId', body.prestationCategoryId);
-    console.log('date', body.date);
     const parsedDate = new Date(body.date);
-    console.log('parsedDate', parsedDate);
     return this.prestationCategoryService.findAvailablePrestationPropose(
       body.prestationCategoryId,
       parsedDate,
@@ -61,7 +58,7 @@ export class PrestationCategoryController {
     @Body() updatePrestationCategoryDto: UpdatePrestationCategoryDto,
   ) {
     return this.prestationCategoryService.update(
-      +id,
+      id,
       updatePrestationCategoryDto,
     );
   }
@@ -69,6 +66,6 @@ export class PrestationCategoryController {
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
-    return this.prestationCategoryService.remove(+id);
+    return this.prestationCategoryService.remove(id);
   }
 }
