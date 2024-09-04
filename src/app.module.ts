@@ -47,6 +47,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { StripeModule } from './stripe/stripe.module';
 import { ConfigModule } from '@nestjs/config';
 import { PdfService } from './pdf/pdf.service';
+import { PdfController } from './pdf/pdf.controller';
+import { PdfModule } from './pdf/pdf.module';
 
 @Module({
   imports: [
@@ -80,6 +82,7 @@ import { PdfService } from './pdf/pdf.service';
     PrestationCategoryModule,
     AuthModule,
     StripeModule,
+    PdfModule,
   ],
   controllers: [
     BienController,
@@ -92,6 +95,7 @@ import { PdfService } from './pdf/pdf.service';
     FactureClientController,
     BienCategoryController,
     PrestationCategoryController,
+    PdfController,
   ],
   providers: [
     BienService,
