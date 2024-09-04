@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as PDFDocument from 'pdfkit';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
+import * as path from 'path';
 
 @Injectable()
 export class PdfService {
@@ -53,6 +54,8 @@ export class PdfService {
         });
       });
 
-    return filePath;
+      const fileName = path.basename(filePath);
+
+      return fileName;
   }
 }

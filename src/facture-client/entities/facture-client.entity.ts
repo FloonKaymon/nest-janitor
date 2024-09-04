@@ -1,10 +1,11 @@
 import { PrestationUnitaire } from 'src/prestation-unitaire/entities/prestation-unitaire.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
+import { StandardAccount } from 'src/standard-account/entities/standard-account.entity';
 import {
   Column,
   Entity,
-  OneToMany,
-  OneToOne,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -14,20 +15,13 @@ export class FactureClient {
   id: number;
 
   @Column()
-  date: Date;
-
-  @Column()
-  status: string;
-
-  @Column()
   url: string;
 
-  @OneToMany(
-    () => PrestationUnitaire,
-    (prestationUnitaires) => prestationUnitaires.factureClient,
-  )
-  prestationUnitaires: PrestationUnitaire[];
+  @Column({ name: 'standard_account_id' })
+  standardAccountId: number;
 
-  @OneToOne(() => Reservation, (reservation) => reservation.factureClient)
-  reservation: Reservation;
+  @ManyToOne(() => StandardAccount, (standardAccount) => standardAccount.factureClients)
+  @JoinColumn({ name: 'standard_account_id' })
+  standardAccount: StandardAccount;
+
 }

@@ -1,9 +1,10 @@
 import { IsDate } from 'class-validator';
 import { Bien } from 'src/bien/entities/bien.entity';
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
+import { FactureClient } from 'src/facture-client/entities/facture-client.entity';
 import { PrestationPropose } from 'src/prestation-propose/entities/prestation-propose.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'standardAccount' })
 export class StandardAccount {
@@ -40,6 +41,9 @@ export class StandardAccount {
 
   @Column()
   photoUrl: string;
+
+  @OneToMany(() => FactureClient, (factureClients) => factureClients.standardAccount)
+  factureClients: FactureClient[];
 
   @OneToMany(
     () => PrestationPropose,

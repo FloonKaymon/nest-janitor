@@ -49,6 +49,4 @@ export class Reservation {
   @JoinColumn({ name: 'bien_id' })
   bien: Bien;
 
-  @OneToOne(() => FactureClient, (factureClient) => factureClient.reservation)
-  factureClient: FactureClient;
 }

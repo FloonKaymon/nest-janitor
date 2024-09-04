@@ -33,9 +33,6 @@ export class PrestationUnitaire {
   @Column({ name: 'reservation_id', nullable: true })
   reservationId: number;
 
-  @Column({ name: 'facture_client_id', nullable: true })
-  factureClientId: number;
-
   @Column({ name: 'bien_id', nullable: true })
   bienId: number;
 
@@ -56,13 +53,6 @@ export class PrestationUnitaire {
   )
   @JoinColumn({ name: 'reservation_id' })
   reservation: Reservation;
-
-  @ManyToOne(
-    () => FactureClient,
-    (factureClient) => factureClient.prestationUnitaires,
-  )
-  @JoinColumn({ name: 'facture_client_id' })
-  factureClient: FactureClient;
 
   constructor(id: number, informationComplementaire: string, nbrUnit: number) {
     this.id = id;
