@@ -37,8 +37,36 @@ export class StripeService {
     return products;
   }
 
+  async createPaymentIntent(email: string, name: string, amount: number, currency : string, paymentMethodId: string, return_url: string) {
+    // Recherchez le client existant par email
+    const existingCustomers = await this.stripe.customers.list({
+      email,
+      limit: 1,
+    });
 
-  async createPaymentIntent(
+    let customer;
+    if (existingCustomers.data.length > 0) {
+      customer = existingCustomers.data[0];
+    } else {
+      customer = await this.createCustomer(email, name);
+    }
+
+    // Créez un paiementIntent
+    const paymentIntent = await this.stripe.paymentIntents.create({
+      amount,
+      currency,
+      customer: customer.id,
+      payment_method: paymentMethodId,
+      confirm: true,
+      return_url: return_url,
+    });
+    return {
+      clientSecret: paymentIntent.client_secret,
+    };
+  }
+
+
+  /*async createPaymentIntent(
     email: string,
     name: string,
     amount: number,
@@ -59,6 +87,7 @@ export class StripeService {
       customer = await this.createCustomer(email, name);
     }
 
+    
     // Créez un PaymentIntent
     const paymentIntent = await this.stripe.paymentIntents.create({
       amount,
@@ -92,7 +121,7 @@ export class StripeService {
       invoiceId: invoiceId,
     };
   }
-  
+  */
   async saveInvoiceAsPdf(invoiceId: string) {
     try {
       // Récupérer les détails de la facture

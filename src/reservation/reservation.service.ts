@@ -24,15 +24,6 @@ export class ReservationService {
     });
   }
 
-  async isConflict(startDate: Date, endDate: Date): Promise<boolean> {
-    const conflictingReservations = await this.reservationRepository.find({
-      where: [
-        { startDate: LessThanOrEqual(endDate), endDate: MoreThanOrEqual(startDate) },
-      ],
-    });
-
-    return conflictingReservations.length > 0;
-  }
 
   findOne(id: number) {
     return `This action returns a #${id} reservation`;
