@@ -12,10 +12,6 @@ export class ReservationService {
     private reservationRepository: Repository<Reservation>,
   ) {}
   async create(createReservationDto: CreateReservationDto) {
-
-    if (await this.isConflict(createReservationDto.startDate, createReservationDto.endDate)) {
-      throw new ConflictException('There is already a reservation for the requested dates.');
-    }
     return await this.reservationRepository.save(createReservationDto);
   }
 
